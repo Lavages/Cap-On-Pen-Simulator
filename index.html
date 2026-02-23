@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cap On Pen - Pro League Legacy</title>
+    <style>
+        :root {
+            --cs-pink: #fce4ec;
+            --cs-pink-accent: #f06292;
+            --cs-violet: #7e57c2;
+            --cs-violet-light: #b39ddb;
+            --cs-white: #ffffff;
+            --digital-green: #00ff41;
+            --wood: #120a08;
+            /* Updated Pen Colors based on image */
+            --pen-pink: #e8a8b8;
+            --pen-silver: #c0c0c0;
+            --pen-chrome: #e0e0e0;
+        }
+
+        body {
+            background: var(--wood) url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            color: #333;
+        }
+
+        /* --- SIDEBAR --- */
+        #side-panel {
+            width: 280px;
+            height: 96vh;
+            background: var(--cs-white);
+            margin-left: 15px;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--cs-pink-accent);
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .cs-header {
+            background: var(--cs-violet);
+            color: white;
+            padding: 8px 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .cs-section {
+            padding: 12px;
+            background: var(--cs-pink);
+            border-bottom: 1px solid #e1bee7;
+        }
+
+        .cs-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 10px;
+            font-size: 0.85rem;
+        }
+
+        .stat-label {
+            color: #6a1b9a;
+            font-weight: 500;
+        }
+
+        .stat-bold {
+            font-weight: 700;
+            color: #4a148c;
+            text-align: right;
+        }
+
+        #times-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            background: var(--cs-white);
+            font-family: monospace;
+        }
+
+        .time-entry {
+            display: grid;
+            grid-template-columns: 45px 1fr 70px;
+            padding: 6px 12px;
+            border-bottom: 1px solid #f3e5f5;
+        }
+
+        .time-val {
+            color: #212121;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        /* --- WORKSPACE --- */
+        #workspace {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            height: 100%;
+        }
+
+        #mat {
+            width: 1000px;
+            height: 560px;
+            background: #0d0216;
+            border-radius: 110px;
+            border: 12px solid #222;
+            position: relative;
+            box-shadow: inset 0 0 100px #000, 0 50px 80px rgba(0, 0, 0, 0.8);
+            background-image: radial-gradient(circle at 50% 50%, #2e1a47 0%, transparent 80%), url('https://www.transparenttextures.com/patterns/stardust.png');
+        }
+
+        /* --- TIMER --- */
+        #g5-timer {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 480px;
+            height: 140px;
+            background: #222;
+            clip-path: polygon(8% 0%, 92% 0%, 100% 100%, 0% 100%);
+            border-top: 3px solid #333;
+            z-index: 10;
+        }
+
+        #timer-screen {
+            background: #000;
+            width: 200px;
+            height: 70px;
+            margin: 15px auto;
+            border: 3px solid #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+
+        #timer-text {
+            font-family: monospace;
+            font-size: 3.2rem;
+            color: var(--digital-green);
+            margin: 0;
+            text-shadow: 0 0 10px var(--digital-green);
+        }
+
+        /* --- CUBE COVER --- */
+        #cover-wrapper {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            cursor: pointer;
+            z-index: 50;
+        }
+
+        #cover {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(8, 1fr);
+            gap: 1.5px;
+            padding: 6px;
+            border-radius: 4px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
+        }
+
+        .sticker {
+            border-radius: 1px;
+        }
+
+        #logo-badge {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid var(--cs-pink-accent);
+            padding: 15px 0;
+            text-align: center;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        #logo-main {
+            font-weight: 800;
+            font-size: 1.6rem;
+            font-style: italic;
+            background: linear-gradient(135deg, #fff 30%, var(--cs-pink-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        /* --- UPDATED MONTEGRAPPA PEN (MATCHING IMAGE) --- */
+        .movable {
+            position: absolute;
+            z-index: 60;
+            display: none;
+            cursor: grab;
+        }
+
+        #pen {
+            width: 250px;
+            height: 20px;
+            background: linear-gradient(to bottom, #f0c0cd, var(--pen-pink), #d08898);
+            border-radius: 2px 10px 10px 2px;
+            filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.6));
+        }
+
+        /* The silver threaded section from the image */
+        #pen-threads {
+            position: absolute;
+            left: 60px;
+            top: 0;
+            width: 14px;
+            height: 100%;
+            background: repeating-linear-gradient(90deg, #999, #999 1px, #eee 2px, #eee 3px);
+            border-left: 1px solid #777;
+            border-right: 1px solid #777;
+        }
+
+        #pen-grip {
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 60px;
+            height: 16px;
+            background: linear-gradient(to bottom, #f0c0cd, var(--pen-pink), #d08898);
+            border-radius: 2px 0 0 2px;
+        }
+
+        #pen-nib {
+            position: absolute;
+            left: -38px;
+            top: 1px;
+            width: 38px;
+            height: 18px;
+            background: linear-gradient(to bottom, var(--pen-silver), var(--pen-chrome), var(--pen-silver));
+            clip-path: polygon(100% 15%, 100% 85%, 70% 100%, 0% 50%, 70% 0%);
+        }
+
+        #pen-end {
+            position: absolute;
+            right: 0;
+            width: 6px;
+            height: 100%;
+            background: var(--pen-chrome);
+            border-radius: 0 10px 10px 0;
+        }
+
+        #cap {
+            width: 110px;
+            height: 24px;
+            background: linear-gradient(to bottom, #f0c0cd, var(--pen-pink), #d08898);
+            border-radius: 4px 12px 12px 4px;
+            filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.6));
+        }
+
+        /* The thick silver band at the bottom of the cap */
+        .cap-band-main {
+            position: absolute;
+            left: 0;
+            width: 22px;
+            height: 100%;
+            background: linear-gradient(to bottom, #999, var(--pen-chrome), #999);
+            border-radius: 4px 0 0 4px;
+            border-right: 2px solid #888;
+        }
+
+        #clip {
+            position: absolute;
+            top: 10px;
+            left: 22px;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(to bottom, var(--pen-chrome), var(--pen-silver));
+            border-radius: 0 2px 2px 0;
+            box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .shaking {
+            animation: rumble 0.08s infinite;
+        }
+
+        @keyframes rumble {
+            0% {
+                transform: translate(1px, 1px);
+            }
+
+            100% {
+                transform: translate(-1px, -1px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="side-panel">
+        <div class="cs-header"><span>Session: Cap On Pen</span><span>PRO</span></div>
+        <div class="cs-section">
+            <div class="cs-stats-grid">
+                <span class="stat-label">Solves:</span> <span class="stat-bold" id="stat-count">0</span>
+                <span class="stat-label">Best:</span> <span class="stat-bold" id="stat-best">--</span>
+                <span class="stat-label">Ao5:</span> <span class="stat-bold" id="stat-ao5">--</span>
+                <span class="stat-label">Ao12:</span> <span class="stat-bold" id="stat-ao12">--</span>
+                <span class="stat-label">Ao100:</span> <span class="stat-bold" id="stat-ao100">--</span>
+            </div>
+        </div>
+        <div class="cs-header"><span>Solve History</span></div>
+        <div id="times-list"></div>
+    </div>
+
+    <div id="workspace">
+        <div id="mat">
+            <div id="g5-timer">
+                <div id="timer-screen">
+                    <p id="timer-text">0.000</p>
+                </div>
+            </div>
+            <div id="cover-wrapper">
+                <div id="cover">
+                    <div id="logo-badge">
+                        <div id="logo-main">Cap On Pen</div>
+                        <div
+                            style="color:var(--cs-pink-accent); font-size:0.6rem; letter-spacing:3px; font-weight: bold;">
+                            PRO LEAGUE</div>
+                    </div>
+                </div>
+            </div>
+            <div id="pen" class="movable">
+                <div id="pen-nib"></div>
+                <div id="pen-grip"></div>
+                <div id="pen-threads"></div>
+                <div id="pen-end"></div>
+            </div>
+            <div id="cap" class="movable">
+                <div class="cap-band-main"></div>
+                <div id="clip"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const wrapper = document.getElementById('cover-wrapper');
+        const cover = document.getElementById('cover');
+        const timerText = document.getElementById('timer-text');
+        const pen = document.getElementById('pen');
+        const cap = document.getElementById('cap');
+        const list = document.getElementById('times-list');
+
+        const cubeColors = ['#ffffff', '#ffff00', '#ff0000', '#ffa500', '#00ff00', '#0000ff'];
+        let solves = [];
+        let isRunning = false;
+        let startTime, timerInterval, activeElement, mouseOffset = { x: 0, y: 0 };
+
+        function initFixedPattern() {
+            const logo = document.getElementById('logo-badge');
+            cover.innerHTML = '';
+            cover.appendChild(logo);
+            for (let i = 0; i < 64; i++) {
+                const s = document.createElement('div');
+                s.className = 'sticker';
+                s.style.backgroundColor = cubeColors[(i * 17 + 5) % cubeColors.length];
+                cover.appendChild(s);
+            }
+        }
+
+        function calcAoX(size) {
+            if (solves.length < size) return null;
+            let group = [...solves].slice(-size).sort((a, b) => a - b);
+            let trim = Math.ceil(size * 0.05) || 1;
+            for (let i = 0; i < trim; i++) { group.pop(); group.shift(); }
+            return (group.reduce((a, b) => a + b, 0) / group.length).toFixed(3);
+        }
+
+        function updateUI(time) {
+            const entry = document.createElement('div');
+            entry.className = 'time-entry';
+            entry.innerHTML = `<span class="time-num">${solves.length}.</span> <span></span> <span class="time-val">${time.toFixed(3)}</span>`;
+            list.prepend(entry);
+            document.getElementById('stat-count').innerText = solves.length;
+            document.getElementById('stat-best').innerText = Math.min(...solves).toFixed(3);
+            document.getElementById('stat-ao5').innerText = calcAoX(5) || "--";
+            document.getElementById('stat-ao12').innerText = calcAoX(12) || "--";
+            document.getElementById('stat-ao100').innerText = calcAoX(100) || "--";
+        }
+
+        function reset() {
+            isRunning = false;
+            clearInterval(timerInterval);
+            timerText.style.color = "#ff4444";
+            wrapper.style.display = 'block';
+            wrapper.classList.add('shaking');
+            pen.style.display = 'none';
+            cap.style.display = 'none';
+            setTimeout(() => {
+                wrapper.classList.remove('shaking');
+                wrapper.style.left = '360px'; wrapper.style.top = '110px';
+                pen.style.left = (150 + Math.random() * 150) + 'px';
+                pen.style.top = (330 + Math.random() * 50) + 'px';
+                cap.style.left = (700 + Math.random() * 150) + 'px';
+                cap.style.top = (330 + Math.random() * 50) + 'px';
+                timerText.innerText = "0.000";
+                timerText.style.color = "var(--digital-green)";
+            }, 500);
+        }
+
+        wrapper.addEventListener('mousedown', () => {
+            if (wrapper.classList.contains('shaking')) return;
+            wrapper.style.display = 'none';
+            pen.style.display = 'block';
+            cap.style.display = 'block';
+            isRunning = true;
+            startTime = performance.now();
+            timerInterval = setInterval(() => {
+                timerText.innerText = ((performance.now() - startTime) / 1000).toFixed(3);
+            }, 10);
+        });
+
+        [pen, cap].forEach(el => {
+            el.addEventListener('mousedown', (e) => {
+                if (!isRunning) return;
+                activeElement = el;
+                const r = el.getBoundingClientRect();
+                mouseOffset.x = e.clientX - r.left;
+                mouseOffset.y = e.clientY - r.top;
+            });
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!activeElement) return;
+            const matR = document.getElementById('mat').getBoundingClientRect();
+            activeElement.style.left = (e.clientX - matR.left - mouseOffset.x) + 'px';
+            activeElement.style.top = (e.clientY - matR.top - mouseOffset.y) + 'px';
+            const cR = cap.getBoundingClientRect();
+            const pR = pen.getBoundingClientRect();
+            // Snap target for the new silver band
+            const tx = pR.left + 50;
+            const ty = pR.top - 2;
+            if (Math.hypot(cR.left - tx, cR.top - ty) < 25) {
+                isRunning = false;
+                clearInterval(timerInterval);
+                const time = parseFloat(timerText.innerText);
+                solves.push(time);
+                cap.style.left = (parseFloat(pen.style.left) - 50) + 'px'; // Cap goes over grip
+                cap.style.top = (parseFloat(pen.style.top) - 3) + 'px';
+                timerText.style.color = "#fff";
+                activeElement = null;
+                updateUI(time);
+            }
+        });
+
+        window.addEventListener('mouseup', () => activeElement = null);
+        window.addEventListener('keydown', (e) => { if (e.code === 'Space') reset(); });
+        initFixedPattern();
+        reset();
+    </script>
+</body>
+
+</html>
