@@ -4,23 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Cap On Pen - Pro League Legacy</title>
+    <title>Cap On Pen - Pro League</title>
     <style>
         :root {
-            --cs-pink: #fce4ec;
             --cs-pink-accent: #f06292;
-            --cs-violet: #7e57c2;
-            --cs-violet-light: #b39ddb;
-            --cs-white: #ffffff;
             --digital-green: #00ff41;
-            --wood: #120a08;
             --pen-pink: #e8a8b8;
             --pen-silver: #c0c0c0;
             --pen-chrome: #e0e0e0;
         }
 
         body {
-            background: var(--wood) url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+            background: #120a08 url('https://www.transparenttextures.com/patterns/wood-pattern.png');
             margin: 0;
             overflow: hidden;
             display: flex;
@@ -31,79 +26,85 @@
             touch-action: none;
         }
 
-        /* --- SIDEBAR --- */
+        /* --- PROFESSIONAL SIDEBAR --- */
         #side-panel {
             width: 250px;
             height: 96vh;
-            background: var(--cs-white);
+            background: #fafafa;
             margin-left: 10px;
-            border-radius: 6px;
+            border-radius: 4px;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--cs-pink-accent);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            border: 1px solid #333;
             z-index: 100;
             overflow: hidden;
         }
 
         .cs-header {
-            background: var(--cs-violet);
-            color: white;
-            padding: 8px 12px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 3px solid var(--cs-pink-accent);
         }
 
         .cs-section {
-            padding: 10px;
-            background: var(--cs-pink);
-            border-bottom: 1px solid #e1bee7;
+            padding: 12px;
+            background: #ececec;
+            border-bottom: 1px solid #ccc;
         }
 
         .cs-stats-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2px 8px;
-            font-size: 0.75rem;
+            gap: 4px 10px;
+            font-size: 0.8rem;
         }
 
         .stat-label {
-            color: #6a1b9a;
-            font-weight: 500;
+            color: #555;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.65rem;
         }
 
         .stat-bold {
             font-weight: 700;
-            color: #4a148c;
+            color: #000;
             text-align: right;
+            font-family: monospace;
         }
 
         #times-list {
             flex-grow: 1;
             overflow-y: auto;
-            background: var(--cs-white);
-            font-family: monospace;
-            font-size: 0.8rem;
+            background: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
         }
 
         .time-entry {
             display: grid;
-            grid-template-columns: 35px 1fr 60px;
-            padding: 4px 10px;
-            border-bottom: 1px solid #f3e5f5;
+            grid-template-columns: 35px 1fr 70px;
+            padding: 6px 12px;
+            border-bottom: 1px solid #eee;
+            color: #333;
         }
 
         .btn-clear {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid white;
-            color: white;
-            padding: 2px 6px;
-            border-radius: 3px;
+            background: #333;
+            border: none;
+            color: #eee;
+            padding: 4px 8px;
+            border-radius: 2px;
             cursor: pointer;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
+            font-weight: bold;
         }
 
         /* --- WORKSPACE --- */
@@ -114,7 +115,6 @@
             align-items: center;
             position: relative;
             height: 100%;
-            overflow: hidden;
         }
 
         #mat {
@@ -124,53 +124,30 @@
             border-radius: 110px;
             border: 12px solid #222;
             position: relative;
-            box-shadow: inset 0 0 100px #000, 0 50px 80px rgba(0, 0, 0, 0.8);
-            background-image: radial-gradient(circle at 50% 50%, #2e1a47 0%, transparent 80%), url('https://www.transparenttextures.com/patterns/stardust.png');
-            transform-origin: center;
+            box-shadow: inset 0 0 100px #000, 0 40px 60px rgba(0, 0, 0, 0.7);
+            background-image: radial-gradient(circle at 50% 50%, #2e1a47 0%, transparent 85%), url('https://www.transparenttextures.com/patterns/stardust.png');
         }
 
-        @media (max-width: 900px) {
-            body {
-                flex-direction: column;
-            }
-
-            #side-panel {
-                width: 95vw;
-                height: 200px;
-                margin: 10px 0;
-                order: 2;
-            }
-
-            #workspace {
-                order: 1;
-                width: 100vw;
-            }
-
-            #mat {
-                transform: scale(0.35);
-            }
-        }
-
-        /* --- G5 TIMER & RESET BUTTON --- */
+        /* --- TIMER --- */
         #g5-timer {
             position: absolute;
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
             width: 480px;
-            height: 140px;
-            background: #222;
-            clip-path: polygon(8% 0%, 92% 0%, 100% 100%, 0% 100%);
-            border-top: 3px solid #333;
+            height: 130px;
+            background: #1a1a1a;
+            clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+            border-top: 2px solid #333;
             z-index: 10;
         }
 
         #timer-screen {
             background: #000;
-            width: 200px;
+            width: 220px;
             height: 70px;
             margin: 10px auto;
-            border: 3px solid #444;
+            border: 2px solid #444;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -178,46 +155,41 @@
         }
 
         #timer-text {
-            font-family: monospace;
+            font-family: 'Courier New', monospace;
             font-size: 3.2rem;
             color: var(--digital-green);
             margin: 0;
-            text-shadow: 0 0 10px var(--digital-green);
+            text-shadow: 0 0 8px rgba(0, 255, 65, 0.4);
         }
 
-        /* The physical Reset Button on the Timer */
-        #physical-reset-btn {
+        #reset-btn {
             position: absolute;
             right: 80px;
             top: 25px;
-            width: 40px;
-            height: 40px;
-            background: #b71c1c;
+            width: 45px;
+            height: 45px;
+            background: #c62828;
             border-radius: 50%;
-            border: 4px solid #1a1a1a;
-            box-shadow: 0 4px 0 #6d1010;
+            border: 4px solid #111;
             cursor: pointer;
+            color: white;
+            font-size: 9px;
+            font-weight: 900;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 10px;
-            font-weight: bold;
-            text-transform: uppercase;
+            box-shadow: 0 4px 0 #5f1414;
         }
 
-        #physical-reset-btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #6d1010;
-        }
-
-        /* --- ELEMENTS --- */
+        /* --- ENHANCED LOGO --- */
         #cover-wrapper {
             position: absolute;
-            width: 280px;
-            height: 280px;
+            width: 320px;
+            height: 320px;
             cursor: pointer;
             z-index: 50;
+            left: 340px;
+            top: 90px;
         }
 
         #cover {
@@ -226,14 +198,13 @@
             background: #000;
             display: grid;
             grid-template-columns: repeat(8, 1fr);
-            grid-template-rows: repeat(8, 1fr);
-            gap: 1.5px;
-            padding: 6px;
-            border-radius: 4px;
+            gap: 2px;
+            padding: 8px;
+            border-radius: 6px;
         }
 
         .sticker {
-            border-radius: 1px;
+            border-radius: 2px;
         }
 
         #logo-badge {
@@ -241,25 +212,35 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 80%;
-            background: rgba(0, 0, 0, 0.95);
-            border: 2px solid var(--cs-pink-accent);
-            padding: 15px 0;
+            width: 85%;
+            background: #000;
+            border: 3px solid #fff;
+            outline: 3px solid var(--cs-pink-accent);
+            padding: 20px 0;
             text-align: center;
             z-index: 10;
             pointer-events: none;
         }
 
         #logo-main {
-            font-weight: 800;
-            font-size: 1.6rem;
+            font-weight: 900;
+            font-size: 1.8rem;
             font-style: italic;
-            background: linear-gradient(135deg, #fff 30%, var(--cs-pink-accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #fff;
+            letter-spacing: -1px;
             text-transform: uppercase;
+            line-height: 1;
         }
 
+        #logo-sub {
+            color: var(--cs-pink-accent);
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            margin-top: 5px;
+        }
+
+        /* --- PEN COMPONENTS --- */
         .movable {
             position: absolute;
             z-index: 60;
@@ -270,97 +251,66 @@
         #pen {
             width: 250px;
             height: 20px;
-            background: linear-gradient(to bottom, #f0c0cd, var(--pen-pink), #d08898);
+            background: linear-gradient(to bottom, #f0c0cd, var(--pen-pink), #b07080);
             border-radius: 2px 10px 10px 2px;
-        }
-
-        #pen-threads {
-            position: absolute;
-            left: 60px;
-            top: 0;
-            width: 14px;
-            height: 100%;
-            background: repeating-linear-gradient(90deg, #999, #999 1px, #eee 2px, #eee 3px);
-            border-left: 1px solid #777;
-            border-right: 1px solid #777;
-        }
-
-        #pen-grip {
-            position: absolute;
-            left: 0;
-            top: 2px;
-            width: 60px;
-            height: 16px;
-            background: linear-gradient(to bottom, #f0c0cd, var(--pen-pink), #d08898);
         }
 
         #pen-nib {
             position: absolute;
-            left: -38px;
+            left: -40px;
             top: 1px;
-            width: 38px;
+            width: 40px;
             height: 18px;
-            background: linear-gradient(to bottom, var(--pen-silver), var(--pen-chrome), var(--pen-silver));
-            clip-path: polygon(100% 15%, 100% 85%, 70% 100%, 0% 50%, 70% 0%);
+            background: linear-gradient(to bottom, #aaa, #eee, #aaa);
+            clip-path: polygon(100% 10%, 100% 90%, 75% 100%, 0% 50%, 75% 0%);
         }
 
         #cap {
             width: 110px;
-            height: 24px;
-            background: linear-gradient(to bottom, #f0c0cd, var(--pen-pink), #d08898);
+            height: 26px;
+            background: linear-gradient(to bottom, #f8c8d5, var(--pen-pink), #a06070);
             border-radius: 4px 12px 12px 4px;
         }
 
-        .cap-band-main {
-            position: absolute;
-            left: 0;
-            width: 22px;
-            height: 100%;
-            background: linear-gradient(to bottom, #999, var(--pen-chrome), #999);
-            border-radius: 4px 0 0 4px;
-            border-right: 2px solid #888;
-        }
-
-        #clip {
+        .cap-clip {
             position: absolute;
             top: 10px;
-            left: 22px;
+            left: 20px;
             width: 70px;
             height: 4px;
-            background: linear-gradient(to bottom, var(--pen-chrome), var(--pen-silver));
+            background: var(--pen-chrome);
             border-radius: 0 2px 2px 0;
         }
 
         .shaking {
-            animation: rumble 0.08s infinite;
+            animation: rumble 0.1s infinite;
         }
 
         @keyframes rumble {
             0% {
-                transform: translate(1px, 1px);
+                transform: translate(2px, 2px)
+            }
+
+            50% {
+                transform: translate(-2px, -2px)
             }
 
             100% {
-                transform: translate(-1px, -1px);
+                transform: translate(2px, -2px)
             }
         }
     </style>
 </head>
 
 <body>
-
     <div id="side-panel">
-        <div class="cs-header">
-            <span>Session: Cap On Pen</span>
-            <button class="btn-clear" onclick="clearTimes()">Clear</button>
+        <div class="cs-header"><span>PRO LEAGUE</span><button class="btn-clear" onclick="clearData()">CLEAR</button>
         </div>
         <div class="cs-section">
             <div class="cs-stats-grid">
-                <span class="stat-label">Solves:</span> <span class="stat-bold" id="stat-count">0</span>
-                <span class="stat-label">Best:</span> <span class="stat-bold" id="stat-best">--</span>
-                <span class="stat-label">Ao5:</span> <span class="stat-bold" id="stat-ao5">--</span>
-                <span class="stat-label">Ao12:</span> <span class="stat-bold" id="stat-ao12">--</span>
-                <span class="stat-label">Ao100:</span> <span class="stat-bold" id="stat-ao100">--</span>
+                <span class="stat-label">Solves</span> <span class="stat-bold" id="s-count">0</span>
+                <span class="stat-label">Best</span> <span class="stat-bold" id="s-best">--</span>
+                <span class="stat-label">Avg 5</span> <span class="stat-bold" id="s-ao5">--</span>
             </div>
         </div>
         <div id="times-list"></div>
@@ -372,26 +322,23 @@
                 <div id="timer-screen">
                     <p id="timer-text">0.000</p>
                 </div>
-                <div id="physical-reset-btn" onclick="resetSolve(event)" ontouchstart="resetSolve(event)">Reset</div>
+                <div id="reset-btn" onclick="reset()">RESET</div>
             </div>
-            <div id="cover-wrapper">
+
+            <div id="cover-wrapper" onmousedown="start(event)" ontouchstart="start(event)">
                 <div id="cover">
                     <div id="logo-badge">
                         <div id="logo-main">Cap On Pen</div>
-                        <div
-                            style="color:var(--cs-pink-accent); font-size:0.6rem; letter-spacing:3px; font-weight: bold;">
-                            PRO LEAGUE</div>
+                        <div id="logo-sub">PRO LEAGUE</div>
                     </div>
                 </div>
             </div>
+
             <div id="pen" class="movable">
                 <div id="pen-nib"></div>
-                <div id="pen-grip"></div>
-                <div id="pen-threads"></div>
             </div>
             <div id="cap" class="movable">
-                <div class="cap-band-main"></div>
-                <div id="clip"></div>
+                <div class="cap-clip"></div>
             </div>
         </div>
     </div>
@@ -399,147 +346,118 @@
     <script>
         const wrapper = document.getElementById('cover-wrapper');
         const timerText = document.getElementById('timer-text');
-        const pen = document.getElementById('pen');
-        const cap = document.getElementById('cap');
+        const pen = document.getElementById('pen'), cap = document.getElementById('cap');
         const list = document.getElementById('times-list');
-        const mat = document.getElementById('mat');
+        const clickSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3');
 
-        let solves = JSON.parse(localStorage.getItem('cop_solves')) || [];
-        let isRunning = false;
-        let isReadyToReset = true; // Prevents accidental starts
-        let startTime, timerInterval, activeElement, mouseOffset = { x: 0, y: 0 };
+        let solves = JSON.parse(localStorage.getItem('cop_pro_solves')) || [];
+        let running = false, ready = true, active = null;
+        let offset = { x: 0, y: 0 }, interval, startTime;
+        let lastX = 0, lastY = 0;
 
-        function initFixedPattern() {
-            const logo = document.getElementById('logo-badge');
+        function initPattern() {
             const cover = document.getElementById('cover');
+            const logo = document.getElementById('logo-badge');
             const colors = ['#ffffff', '#ffff00', '#ff0000', '#ffa500', '#00ff00', '#0000ff'];
             cover.innerHTML = ''; cover.appendChild(logo);
             for (let i = 0; i < 64; i++) {
-                const s = document.createElement('div');
+                let s = document.createElement('div');
                 s.className = 'sticker';
-                s.style.backgroundColor = colors[(i * 17 + 5) % colors.length];
+                s.style.backgroundColor = colors[Math.floor(Math.random() * 6)];
                 cover.appendChild(s);
             }
         }
 
-        function calcAoX(size) {
-            if (solves.length < size) return null;
-            let group = [...solves].slice(-size).sort((a, b) => a - b);
-            let trim = Math.ceil(size * 0.05) || 1;
-            for (let i = 0; i < trim; i++) { group.pop(); group.shift(); }
-            return (group.reduce((a, b) => a + b, 0) / group.length).toFixed(3);
-        }
-
-        function clearTimes() {
-            if (confirm("Clear all times in this session?")) {
-                solves = []; localStorage.removeItem('cop_solves'); refreshUI();
-            }
-        }
-
-        function refreshUI() {
+        function refresh() {
             list.innerHTML = '';
             solves.forEach((t, i) => {
-                const entry = document.createElement('div');
-                entry.className = 'time-entry';
-                entry.innerHTML = `<span>${i + 1}.</span> <span></span> <span class="stat-bold">${t.toFixed(3)}</span>`;
-                list.prepend(entry);
+                let div = document.createElement('div');
+                div.className = 'time-entry';
+                div.innerHTML = `<span>${i + 1}.</span><span></span><span class="stat-bold">${t.toFixed(3)}</span>`;
+                list.prepend(div);
             });
-            document.getElementById('stat-count').innerText = solves.length;
-            document.getElementById('stat-best').innerText = solves.length ? Math.min(...solves).toFixed(3) : "--";
-            document.getElementById('stat-ao5').innerText = calcAoX(5) || "--";
-            document.getElementById('stat-ao12').innerText = calcAoX(12) || "--";
-            document.getElementById('stat-ao100').innerText = calcAoX(100) || "--";
+            document.getElementById('s-count').innerText = solves.length;
+            document.getElementById('s-best').innerText = solves.length ? Math.min(...solves).toFixed(3) : "--";
+            document.getElementById('s-ao5').innerText = getAvg(5);
         }
 
-        function resetSolve(e) {
-            if (e) e.stopPropagation();
-            isRunning = false;
-            isReadyToReset = false; // Disable until scramble logic finished
-            clearInterval(timerInterval);
+        function getAvg(n) {
+            if (solves.length < n) return "--";
+            let s = [...solves].slice(-n).sort((a, b) => a - b);
+            s.pop(); s.shift();
+            return (s.reduce((a, b) => a + b, 0) / s.length).toFixed(3);
+        }
+
+        function clearData() { if (confirm("Clear Pro League stats?")) { solves = []; localStorage.removeItem('cop_pro_solves'); refresh(); } }
+
+        function reset() {
+            running = false; ready = false; clearInterval(interval);
             timerText.style.color = "#ff4444";
             wrapper.style.display = 'block'; wrapper.classList.add('shaking');
             pen.style.display = 'none'; cap.style.display = 'none';
 
             setTimeout(() => {
                 wrapper.classList.remove('shaking');
-                wrapper.style.left = '360px'; wrapper.style.top = '110px';
-                pen.style.left = (150 + Math.random() * 150) + 'px';
-                pen.style.top = (330 + Math.random() * 50) + 'px';
-                cap.style.left = (700 + Math.random() * 150) + 'px';
-                cap.style.top = (330 + Math.random() * 50) + 'px';
+                // COMPLETELY RANDOM POSITIONS
+                pen.style.left = (50 + Math.random() * 700) + 'px';
+                pen.style.top = (50 + Math.random() * 400) + 'px';
+                cap.style.left = (50 + Math.random() * 700) + 'px';
+                cap.style.top = (50 + Math.random() * 400) + 'px';
+
                 timerText.innerText = "0.000"; timerText.style.color = "var(--digital-green)";
-                isReadyToReset = true; // Ready for next solve
+                ready = true;
             }, 500);
         }
 
-        function handleStart(e) {
-            if (!isReadyToReset || wrapper.classList.contains('shaking')) return;
-            e.stopPropagation();
+        function start() {
+            if (!ready) return;
             wrapper.style.display = 'none'; pen.style.display = 'block'; cap.style.display = 'block';
-            isRunning = true; startTime = performance.now();
-            timerInterval = setInterval(() => {
-                timerText.innerText = ((performance.now() - startTime) / 1000).toFixed(3);
-            }, 10);
+            running = true; startTime = performance.now();
+            interval = setInterval(() => { timerText.innerText = ((performance.now() - startTime) / 1000).toFixed(3); }, 10);
         }
 
-        function handleMove(e) {
-            if (!activeElement) return;
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            const matR = mat.getBoundingClientRect();
-            const scale = matR.width / 1000;
+        function move(e) {
+            if (!active || !running) return;
+            const ev = e.touches ? e.touches[0] : e;
+            const m = document.getElementById('mat').getBoundingClientRect();
+            const s = m.width / 1000;
+            const x = (ev.clientX - m.left) / s - offset.x;
+            const y = (ev.clientY - m.top) / s - offset.y;
+            active.style.left = x + 'px'; active.style.top = y + 'px';
 
-            activeElement.style.left = ((clientX - matR.left) / scale - mouseOffset.x) + 'px';
-            activeElement.style.top = ((clientY - matR.top) / scale - mouseOffset.y) + 'px';
+            const pX = parseFloat(pen.style.left), pY = parseFloat(pen.style.top);
+            const cX = parseFloat(cap.style.left), cY = parseFloat(cap.style.top);
+            const targetX = pX - 60, targetY = pY - 3;
 
-            const cR = cap.getBoundingClientRect();
-            const pR = pen.getBoundingClientRect();
-            const tx = pR.left + (50 * scale);
-            if (Math.hypot(cR.left - tx, cR.top - pR.top) < (25 * scale)) {
-                isRunning = false; clearInterval(timerInterval);
-                const time = parseFloat(timerText.innerText);
-                solves.push(time);
-                localStorage.setItem('cop_solves', JSON.stringify(solves));
-                cap.style.left = (parseFloat(pen.style.left) - 50) + 'px';
-                cap.style.top = (parseFloat(pen.style.top) - 3) + 'px';
-                timerText.style.color = "#fff"; activeElement = null; refreshUI();
+            if (Math.abs(cX - targetX) < 15 && Math.abs(cY - targetY) < 15) {
+                // Must enter from the tip (Left side or Top placement)
+                if (lastX < targetX || lastY < targetY) {
+                    running = false; clearInterval(interval);
+                    clickSound.currentTime = 0; clickSound.play();
+                    solves.push(parseFloat(timerText.innerText));
+                    localStorage.setItem('cop_pro_solves', JSON.stringify(solves));
+                    cap.style.left = targetX + 'px'; cap.style.top = targetY + 'px';
+                    timerText.style.color = "#fff"; active = null; refresh();
+                }
             }
+            lastX = cX; lastY = cY;
         }
 
         function down(e, el) {
-            if (!isRunning) return;
-            e.stopPropagation();
-            activeElement = el;
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            const r = el.getBoundingClientRect();
-            const matR = mat.getBoundingClientRect();
-            const scale = matR.width / 1000;
-            mouseOffset.x = (clientX - r.left) / scale;
-            mouseOffset.y = (clientY - r.top) / scale;
+            e.preventDefault(); active = el;
+            const ev = e.touches ? e.touches[0] : e;
+            const r = el.getBoundingClientRect(), m = document.getElementById('mat').getBoundingClientRect();
+            const s = m.width / 1000;
+            offset.x = (ev.clientX - r.left) / s; offset.y = (ev.clientY - r.top) / s;
         }
 
-        wrapper.addEventListener('mousedown', handleStart);
-        wrapper.addEventListener('touchstart', handleStart);
-        pen.addEventListener('mousedown', (e) => down(e, pen));
-        pen.addEventListener('touchstart', (e) => down(e, pen));
-        cap.addEventListener('mousedown', (e) => down(e, cap));
-        cap.addEventListener('touchstart', (e) => down(e, cap));
-        window.addEventListener('mousemove', handleMove);
-        window.addEventListener('touchmove', handleMove);
-        window.addEventListener('mouseup', () => activeElement = null);
-        window.addEventListener('touchend', () => activeElement = null);
+        pen.addEventListener('mousedown', (e) => down(e, pen)); pen.addEventListener('touchstart', (e) => down(e, pen));
+        cap.addEventListener('mousedown', (e) => down(e, cap)); cap.addEventListener('touchstart', (e) => down(e, cap));
+        window.addEventListener('mousemove', move); window.addEventListener('touchmove', move);
+        window.addEventListener('mouseup', () => active = null); window.addEventListener('touchend', () => active = null);
+        window.addEventListener('keydown', (e) => { if (e.code === 'Space') reset(); });
 
-        window.addEventListener('keydown', (e) => {
-            if (e.code === 'Space') {
-                e.preventDefault();
-                resetSolve();
-            }
-        });
-
-        initFixedPattern();
-        refreshUI();
-        resetSolve(); // Initial setup
+        initPattern(); refresh(); reset();
     </script>
 </body>
 
