@@ -4,14 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Cap On Pen - Pro League</title>
+    <title>Cap On Pen - G5 Elite Pro</title>
     <style>
         :root {
-            --cs-pink-accent: #f06292;
+            --visconti-orange: #ff6a00;
+            --visconti-gold: #ffd740;
             --digital-green: #00ff41;
-            --pen-pink: #e8a8b8;
-            --pen-silver: #c0c0c0;
-            --pen-chrome: #e0e0e0;
+            --ui-pink: #f06292;
+            --g5-blue: #0088ff;
+            --g5-sensor-yellow: #ffdf00;
         }
 
         body {
@@ -26,7 +27,7 @@
             touch-action: none;
         }
 
-        /* --- PROFESSIONAL SIDEBAR --- */
+        /* --- SIDEBAR --- */
         #side-panel {
             width: 250px;
             height: 96vh;
@@ -50,7 +51,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 3px solid var(--cs-pink-accent);
+            border-bottom: 3px solid var(--ui-pink);
         }
 
         .cs-section {
@@ -107,7 +108,7 @@
             font-weight: bold;
         }
 
-        /* --- WORKSPACE --- */
+        /* --- COMPETITION MAT --- */
         #workspace {
             flex-grow: 1;
             display: flex;
@@ -118,78 +119,270 @@
         }
 
         #mat {
-            width: 1000px;
-            height: 560px;
-            background: #0d0216;
-            border-radius: 110px;
-            border: 12px solid #222;
+            width: 1020px;
+            height: 520px;
+            border-radius: 150px;
+            border: 12px solid #111;
             position: relative;
-            box-shadow: inset 0 0 100px #000, 0 40px 60px rgba(0, 0, 0, 0.7);
-            background-image: radial-gradient(circle at 50% 50%, #2e1a47 0%, transparent 85%), url('https://www.transparenttextures.com/patterns/stardust.png');
+            box-shadow: 0 50px 80px rgba(0, 0, 0, 0.9);
+            background: #000;
+            background-image:
+                url('https://www.transparenttextures.com/patterns/carbon-fibre.png'),
+                radial-gradient(circle at 50% 120%, rgba(0, 150, 255, 0.5), transparent 70%),
+                radial-gradient(circle at 20% 30%, rgba(255, 0, 100, 0.6), transparent 60%),
+                radial-gradient(circle at 80% 40%, rgba(255, 200, 0, 0.5), transparent 60%);
         }
 
-        /* --- TIMER --- */
-        #g5-timer {
+        /* WCA LOGO */
+        .wca-logo {
             position: absolute;
-            bottom: 0;
+            left: 80px;
+            bottom: 100px;
+            width: 85px;
+            height: 85px;
+            background: url('https://upload.wikimedia.org/wikipedia/en/thumb/1/13/World_Cube_Association_logo.svg/1200px-World_Cube_Association_logo.svg.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.85;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+        }
+
+        /* WSSA BADGE */
+        .wssa-badge {
+            position: absolute;
+            right: 80px;
+            bottom: 100px;
+            width: 90px;
+            height: 90px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/WSSA_Logo.svg/1200px-WSSA_Logo.svg.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.8;
+            filter: brightness(1.2);
+        }
+
+        /* --- AUTHENTIC G5 TIMER --- */
+        #g5-timer-body {
+            position: absolute;
+            bottom: -20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 480px;
-            height: 130px;
-            background: #1a1a1a;
-            clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
-            border-top: 2px solid #333;
+            width: 460px;
+            height: 140px;
+            background: #0a0a0a;
+            clip-path: polygon(10% 0%, 90% 0%, 100% 40%, 100% 100%, 0% 100%, 0% 40%);
+            border-top: 3px solid #444;
             z-index: 10;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Central Control Section */
+        #timer-screen-container {
+            background: #2a2a2a;
+            width: 180px;
+            height: 90px;
+            margin: 10px auto 0;
+            border-radius: 10px;
+            border: 2px solid #444;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         #timer-screen {
             background: #000;
-            width: 220px;
-            height: 70px;
-            margin: 10px auto;
-            border: 2px solid #444;
+            width: 140px;
+            height: 45px;
+            border: 2px solid #555;
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 4px;
+            margin-bottom: 5px;
+            box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.2);
         }
 
         #timer-text {
             font-family: 'Courier New', monospace;
-            font-size: 3.2rem;
+            font-size: 2.4rem;
             color: var(--digital-green);
             margin: 0;
-            text-shadow: 0 0 8px rgba(0, 255, 65, 0.4);
+        }
+
+        /* G5 Buttons */
+        .g5-btn {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid #111;
+            cursor: pointer;
+        }
+
+        #power-btn {
+            background: #ff3d00;
+            bottom: 8px;
+            left: 35px;
+        }
+
+        #save-btn {
+            background: #4caf50;
+            bottom: 8px;
+            right: 35px;
         }
 
         #reset-btn {
             position: absolute;
-            right: 80px;
-            top: 25px;
-            width: 45px;
-            height: 45px;
-            background: #c62828;
-            border-radius: 50%;
-            border: 4px solid #111;
-            cursor: pointer;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 25px;
+            background: #333;
+            border-radius: 5px;
+            border: 2px solid #111;
             color: white;
-            font-size: 9px;
+            font-size: 7px;
             font-weight: 900;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 0 #5f1414;
+            cursor: pointer;
         }
 
-        /* --- ENHANCED LOGO --- */
+        /* G5 Sensor Pads */
+        .sensor-pad {
+            position: absolute;
+            bottom: 15px;
+            width: 110px;
+            height: 100px;
+            background: #050505;
+            border: 2px solid #2a2a2a;
+            border-radius: 25px;
+            background-image:
+                radial-gradient(circle at 50% 50%, var(--g5-blue) 0%, transparent 90%),
+                repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.03) 0, rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8), inset 0 0 20px var(--g5-blue);
+        }
+
+        #pad-left {
+            left: 10px;
+            transform: rotate(-12deg);
+        }
+
+        #pad-right {
+            right: 10px;
+            transform: rotate(12deg);
+        }
+
+        .hand-icon {
+            color: var(--g5-sensor-yellow);
+            font-size: 40px;
+            filter: drop-shadow(0 0 8px var(--g5-sensor-yellow));
+            font-weight: bold;
+        }
+
+        /* --- VISCONTI PEN & CAP --- */
+        .movable {
+            position: absolute;
+            z-index: 60;
+            display: none;
+            cursor: grab;
+        }
+
+        #pen {
+            width: 320px;
+            height: 28px;
+            background: linear-gradient(to bottom, #ffa726 0%, #fb8c00 45%, #e65100 55%, #bf360c 100%);
+            border-radius: 0 16px 16px 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), inset 0 2px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        .gold-ring {
+            position: absolute;
+            width: 7px;
+            height: 100%;
+            background: linear-gradient(to bottom, #fff9c4, #fbc02d, #f57f17, #fbc02d, #fff9c4);
+            border-left: 1px solid rgba(0, 0, 0, 0.2);
+            border-right: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        #ring-1 {
+            right: 25px;
+        }
+
+        #ring-2 {
+            left: 12px;
+        }
+
+        #pen-grip {
+            position: absolute;
+            left: -45px;
+            top: 2px;
+            width: 45px;
+            height: 24px;
+            background: linear-gradient(to bottom, #ff9800, #ef6c00);
+            border-radius: 15px 0 0 15px;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        #pen-nib {
+            position: absolute;
+            left: -95px;
+            top: 0;
+            width: 55px;
+            height: 28px;
+            background: linear-gradient(180deg, #fdd835 0%, #fffde7 40%, #fbc02d 60%, #f9a825 100%);
+            clip-path: polygon(100% 15%, 100% 85%, 80% 100%, 0% 50%, 80% 0%);
+        }
+
+        #cap {
+            width: 155px;
+            height: 34px;
+            background: linear-gradient(to bottom, #ffa726 0%, #fb8c00 45%, #e65100 55%, #bf360c 100%);
+            border-radius: 17px 6px 6px 17px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7), inset 0 2px 2px rgba(255, 255, 255, 0.2);
+        }
+
+        #cap-band {
+            position: absolute;
+            right: 0;
+            width: 28px;
+            height: 100%;
+            background: linear-gradient(to bottom, #fff176, #fbc02d, #f57f17);
+            border-radius: 0 6px 6px 0;
+            background-image: repeating-linear-gradient(90deg, transparent 0, transparent 4px, rgba(0, 0, 0, 0.1) 5px);
+        }
+
+        #cap-clip {
+            position: absolute;
+            left: 35px;
+            top: -6px;
+            width: 100px;
+            height: 14px;
+            background: linear-gradient(to bottom, #fffde7, #fbc02d, #f57f17);
+            border-radius: 20px 20px 4px 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            font-size: 8px;
+            color: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* --- LOGO COVER --- */
         #cover-wrapper {
             position: absolute;
-            width: 320px;
-            height: 320px;
+            width: 340px;
+            height: 340px;
             cursor: pointer;
             z-index: 50;
             left: 340px;
-            top: 90px;
+            top: 60px;
         }
 
         #cover {
@@ -200,11 +393,12 @@
             grid-template-columns: repeat(8, 1fr);
             gap: 2px;
             padding: 8px;
-            border-radius: 6px;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
         }
 
         .sticker {
-            border-radius: 2px;
+            border-radius: 3px;
         }
 
         #logo-badge {
@@ -215,8 +409,8 @@
             width: 85%;
             background: #000;
             border: 3px solid #fff;
-            outline: 3px solid var(--cs-pink-accent);
-            padding: 20px 0;
+            outline: 3px solid var(--ui-pink);
+            padding: 25px 0;
             text-align: center;
             z-index: 10;
             pointer-events: none;
@@ -224,7 +418,7 @@
 
         #logo-main {
             font-weight: 900;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-style: italic;
             color: #fff;
             letter-spacing: -1px;
@@ -233,53 +427,11 @@
         }
 
         #logo-sub {
-            color: var(--cs-pink-accent);
-            font-size: 0.8rem;
+            color: var(--ui-pink);
+            font-size: 0.9rem;
             font-weight: 800;
-            letter-spacing: 4px;
+            letter-spacing: 5px;
             margin-top: 5px;
-        }
-
-        /* --- PEN COMPONENTS --- */
-        .movable {
-            position: absolute;
-            z-index: 60;
-            display: none;
-            cursor: grab;
-        }
-
-        #pen {
-            width: 250px;
-            height: 20px;
-            background: linear-gradient(to bottom, #f0c0cd, var(--pen-pink), #b07080);
-            border-radius: 2px 10px 10px 2px;
-        }
-
-        #pen-nib {
-            position: absolute;
-            left: -40px;
-            top: 1px;
-            width: 40px;
-            height: 18px;
-            background: linear-gradient(to bottom, #aaa, #eee, #aaa);
-            clip-path: polygon(100% 10%, 100% 90%, 75% 100%, 0% 50%, 75% 0%);
-        }
-
-        #cap {
-            width: 110px;
-            height: 26px;
-            background: linear-gradient(to bottom, #f8c8d5, var(--pen-pink), #a06070);
-            border-radius: 4px 12px 12px 4px;
-        }
-
-        .cap-clip {
-            position: absolute;
-            top: 10px;
-            left: 20px;
-            width: 70px;
-            height: 4px;
-            background: var(--pen-chrome);
-            border-radius: 0 2px 2px 0;
         }
 
         .shaking {
@@ -304,7 +456,7 @@
 
 <body>
     <div id="side-panel">
-        <div class="cs-header"><span>PRO LEAGUE</span><button class="btn-clear" onclick="clearData()">CLEAR</button>
+        <div class="cs-header"><span>G5 ELITE PRO</span><button class="btn-clear" onclick="clearData()">CLEAR</button>
         </div>
         <div class="cs-section">
             <div class="cs-stats-grid">
@@ -318,27 +470,38 @@
 
     <div id="workspace">
         <div id="mat">
-            <div id="g5-timer">
-                <div id="timer-screen">
-                    <p id="timer-text">0.000</p>
+            <div class="wca-logo"></div>
+            <div class="wssa-badge"></div>
+
+            <div id="g5-timer-body">
+                <div id="pad-left" class="sensor-pad"><span class="hand-icon">✋</span></div>
+
+                <div id="timer-screen-container">
+                    <div id="timer-screen">
+                        <p id="timer-text">0.000</p>
+                    </div>
+                    <div id="power-btn" class="g5-btn" title="On/Off"></div>
+                    <div id="save-btn" class="g5-btn" title="Save"></div>
+                    <div id="reset-btn" onclick="reset()">RESET</div>
                 </div>
-                <div id="reset-btn" onclick="reset()">RESET</div>
+
+                <div id="pad-right" class="sensor-pad"><span class="hand-icon">✋</span></div>
             </div>
 
             <div id="cover-wrapper" onmousedown="start(event)" ontouchstart="start(event)">
-                <div id="cover">
-                    <div id="logo-badge">
-                        <div id="logo-main">Cap On Pen</div>
-                        <div id="logo-sub">PRO LEAGUE</div>
-                    </div>
-                </div>
+                <div id="cover"></div>
             </div>
 
             <div id="pen" class="movable">
+                <div id="ring-1" class="gold-ring"></div>
+                <div id="ring-2" class="gold-ring"></div>
+                <div id="pen-grip"></div>
                 <div id="pen-nib"></div>
             </div>
+
             <div id="cap" class="movable">
-                <div class="cap-clip"></div>
+                <div id="cap-band"></div>
+                <div id="cap-clip">VISCONTI</div>
             </div>
         </div>
     </div>
@@ -350,16 +513,15 @@
         const list = document.getElementById('times-list');
         const clickSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3');
 
-        let solves = JSON.parse(localStorage.getItem('cop_pro_solves')) || [];
+        let solves = JSON.parse(localStorage.getItem('cop_g5_v3')) || [];
         let running = false, ready = true, active = null;
         let offset = { x: 0, y: 0 }, interval, startTime;
-        let lastX = 0, lastY = 0;
+        let lastCapX = 0, lastPenX = 0;
 
         function initPattern() {
             const cover = document.getElementById('cover');
-            const logo = document.getElementById('logo-badge');
             const colors = ['#ffffff', '#ffff00', '#ff0000', '#ffa500', '#00ff00', '#0000ff'];
-            cover.innerHTML = ''; cover.appendChild(logo);
+            cover.innerHTML = '<div id="logo-badge"><div id="logo-main">Cap On Pen</div><div id="logo-sub">G5 ELITE</div></div>';
             for (let i = 0; i < 64; i++) {
                 let s = document.createElement('div');
                 s.className = 'sticker';
@@ -388,7 +550,7 @@
             return (s.reduce((a, b) => a + b, 0) / s.length).toFixed(3);
         }
 
-        function clearData() { if (confirm("Clear Pro League stats?")) { solves = []; localStorage.removeItem('cop_pro_solves'); refresh(); } }
+        function clearData() { if (confirm("Clear records?")) { solves = []; localStorage.removeItem('cop_g5_v3'); refresh(); } }
 
         function reset() {
             running = false; ready = false; clearInterval(interval);
@@ -398,12 +560,11 @@
 
             setTimeout(() => {
                 wrapper.classList.remove('shaking');
-                // COMPLETELY RANDOM POSITIONS
-                pen.style.left = (50 + Math.random() * 700) + 'px';
-                pen.style.top = (50 + Math.random() * 400) + 'px';
-                cap.style.left = (50 + Math.random() * 700) + 'px';
-                cap.style.top = (50 + Math.random() * 400) + 'px';
-
+                pen.style.left = (50 + Math.random() * 600) + 'px';
+                pen.style.top = (50 + Math.random() * 250) + 'px';
+                cap.style.left = (50 + Math.random() * 600) + 'px';
+                cap.style.top = (50 + Math.random() * 250) + 'px';
+                lastCapX = parseFloat(cap.style.left); lastPenX = parseFloat(pen.style.left);
                 timerText.innerText = "0.000"; timerText.style.color = "var(--digital-green)";
                 ready = true;
             }, 500);
@@ -420,34 +581,42 @@
             if (!active || !running) return;
             const ev = e.touches ? e.touches[0] : e;
             const m = document.getElementById('mat').getBoundingClientRect();
-            const s = m.width / 1000;
+            const s = m.width / 1020;
             const x = (ev.clientX - m.left) / s - offset.x;
             const y = (ev.clientY - m.top) / s - offset.y;
             active.style.left = x + 'px'; active.style.top = y + 'px';
+            checkPhysics();
+        }
 
+        function checkPhysics() {
             const pX = parseFloat(pen.style.left), pY = parseFloat(pen.style.top);
             const cX = parseFloat(cap.style.left), cY = parseFloat(cap.style.top);
-            const targetX = pX - 60, targetY = pY - 3;
+            const targetX = cX + 150; const targetY = cY + 3;
+            const dx = Math.abs(pX - targetX); const dy = Math.abs(pY - targetY);
 
-            if (Math.abs(cX - targetX) < 15 && Math.abs(cY - targetY) < 15) {
-                // Must enter from the tip (Left side or Top placement)
-                if (lastX < targetX || lastY < targetY) {
-                    running = false; clearInterval(interval);
-                    clickSound.currentTime = 0; clickSound.play();
-                    solves.push(parseFloat(timerText.innerText));
-                    localStorage.setItem('cop_pro_solves', JSON.stringify(solves));
-                    cap.style.left = targetX + 'px'; cap.style.top = targetY + 'px';
-                    timerText.style.color = "#fff"; active = null; refresh();
-                }
+            if (dx < 15 && dy < 15) {
+                let valid = false;
+                if (active === pen && pX > lastPenX) valid = true;
+                if (active === cap && cX < lastCapX) valid = true;
+                if (valid) finalize(targetX, targetY);
             }
-            lastX = cX; lastY = cY;
+            lastCapX = cX; lastPenX = pX;
+        }
+
+        function finalize(tx, ty) {
+            running = false; clearInterval(interval);
+            clickSound.currentTime = 0; clickSound.play().catch(() => { });
+            solves.push(parseFloat(timerText.innerText));
+            localStorage.setItem('cop_g5_v3', JSON.stringify(solves));
+            pen.style.left = tx + 'px'; pen.style.top = ty + 'px';
+            timerText.style.color = "#fff"; active = null; refresh();
         }
 
         function down(e, el) {
             e.preventDefault(); active = el;
             const ev = e.touches ? e.touches[0] : e;
             const r = el.getBoundingClientRect(), m = document.getElementById('mat').getBoundingClientRect();
-            const s = m.width / 1000;
+            const s = m.width / 1020;
             offset.x = (ev.clientX - r.left) / s; offset.y = (ev.clientY - r.top) / s;
         }
 
